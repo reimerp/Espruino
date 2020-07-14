@@ -1,0 +1,19 @@
+// write funtion aus i2c lcd gedebuggt
+var write = function(x, c) {
+    var a = (x&0xF0) |8| ((c===undefined)?1:0);
+    var b = ((x<<4)&0xF0) |8| ((c===undefined)?1:0);
+    var c = [a,a,a|4,a|4,a,a,b,b,b|4,b|4,b,b];
+	/*c.forEach(function(entry) {
+		console.log("0x" + entry.toString(16));			// hex ausgeben
+	});*/
+	var res = c.map(function(entry) {
+		return "0x" + entry.toString(16);
+	});
+	console.log(res);
+};
+
+
+E.clip(1,9,12);		// 9-12 gültig 1->9 13-12
+res = [0x1F, 0x3F, 0x5F, 0x7F][E.clip(res, 9, 12) - 9];
+
+var t=getTime()+1;while(getTime()<t);		// wait 1s
